@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Filepond\FilepondController;
+use App\Http\Controllers\Files\DownloadFileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/profile/upload_avatar', [ProfileController::class, 'uploadAvatar'])->name('profile.avatar.upload');
 
-    Route::get('/2fa', function(){
+    Route::get('/2fa', function () {
         return view('users.2fa');
     })->name('users.2fa');
 });
@@ -30,7 +31,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'filepond', 'as' => 'filepon
 
 });
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('downloadMedia/{media}', [DownloadFileController::class, 'downloadMedia'])->name('media.download');
 
-
+});
 
 require __DIR__.'/auth.php';

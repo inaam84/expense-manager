@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Laravel\Fortify\Actions\AttemptToAuthenticate;
 use Laravel\Fortify\Actions\EnsureLoginIsNotThrottled;
 use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
@@ -46,7 +46,6 @@ class AuthenticatedSessionController extends Controller
     /**
      * Get the authentication pipeline instance.
      *
-     * @param  \Laravel\Fortify\Http\Requests\LoginRequest  $request
      * @return \Illuminate\Pipeline\Pipeline
      */
     protected function loginPipeline(LoginRequest $request)

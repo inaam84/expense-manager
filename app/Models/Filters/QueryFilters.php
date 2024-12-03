@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 abstract class QueryFilters
 {
     protected $request;
+
     protected $builder;
 
     public function __construct(Request $request)
@@ -16,19 +17,19 @@ abstract class QueryFilters
     }
 
     abstract protected function getDefaultFilters();
+
     abstract protected function getViewFilters();
+
     abstract protected function getFilterKey();
 
     public function apply(Builder $builder)
     {
         $this->builder = $builder;
 
-        foreach( $this->filters() AS $filter => $value )
-        {
+        foreach ($this->filters() as $filter => $value) {
             $value = $value ?? $this->getDefaultFilters()[$filter] ?? null;
 
-            if(! method_exists($this, $filter) )
-            {
+            if (! method_exists($this, $filter)) {
                 continue;
             }
 
@@ -44,21 +45,17 @@ abstract class QueryFilters
 
         $filters = session()->get($this->getFilterKey(), $allFilters);
 
-        if($this->request->has('_reset') && $this->request->_reset == '2')
-        {
+        if ($this->request->has('_reset') && $this->request->_reset == '2') {
             $filters = $allFilters;
         }
 
-        foreach($this->request->all() AS $key => $value)
-        {
-            if( array_key_exists($key, $filters))
-            {
+        foreach ($this->request->all() as $key => $value) {
+            if (array_key_exists($key, $filters)) {
                 $filters[$key] = $value;
             }
         }
 
-        if($this->request->has('_reset') && $this->request->_reset == '1')
-        {
+        if ($this->request->has('_reset') && $this->request->_reset == '1') {
             $filters = $allFilters;
         }
 

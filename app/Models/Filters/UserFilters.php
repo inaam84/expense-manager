@@ -2,8 +2,6 @@
 
 namespace App\Models\Filters;
 
-use App\Models\Account;
-use App\Models\Lookups\AccountStatus;
 use App\Models\Lookups\UserWebAccess;
 use Illuminate\Http\Request;
 
@@ -50,40 +48,35 @@ class UserFilters extends QueryFilters
 
     public function firstname($value = '')
     {
-        if($value)
-        {
-            $this->builder->where('firstname', 'LIKE', '%' . addslashes($value) . '%');
+        if ($value) {
+            $this->builder->where('firstname', 'LIKE', '%'.addslashes($value).'%');
         }
     }
 
     public function lastname($value = '')
     {
-        if($value)
-        {
-            $this->builder->where('lastname', 'LIKE', '%' . addslashes($value) . '%');
+        if ($value) {
+            $this->builder->where('lastname', 'LIKE', '%'.addslashes($value).'%');
         }
     }
 
     public function username($value = '')
     {
-        if($value)
-        {
+        if ($value) {
             $this->builder->where('username', addslashes($value));
         }
     }
 
     public function email($value = '')
     {
-        if($value)
-        {
+        if ($value) {
             $this->builder->where('email', $value);
         }
     }
 
     public function system_access($value = '')
     {
-        if($value || $value == "0")
-        {
+        if ($value || $value == '0') {
             $this->builder->where('system_access', $value);
         }
     }
@@ -92,8 +85,7 @@ class UserFilters extends QueryFilters
     {
         $allowedColumns = ['firstname', 'created_at'];
 
-        if (in_array($column, $allowedColumns))
-        {
+        if (in_array($column, $allowedColumns)) {
             $direction = isset($this->filters()['direction']) ? $this->filters()['direction'] : 'ASC';
 
             $this->builder->orderBy($column, $direction);
@@ -134,7 +126,7 @@ class UserFilters extends QueryFilters
         $html .= html()->div()->close();
         $html .= html()->div()->attributes(['class' => 'col-md-4'])->open();
         $html .= html()->label('System Access')->for('system_access')->class('form-label');
-        $html .= html()->select('system_access')->class('form-select form-select-sm mb-3')->value((int)$this->filters()['system_access'])->options(['' => '']+UserWebAccess::getList());
+        $html .= html()->select('system_access')->class('form-select form-select-sm mb-3')->value((int) $this->filters()['system_access'])->options(['' => ''] + UserWebAccess::getList());
         $html .= html()->div()->close();
         $html .= html()->div()->attributes(['class' => 'col-md-4'])->open();
         $html .= html()->div()->close();
@@ -152,11 +144,10 @@ class UserFilters extends QueryFilters
         $html .= html()->div()->close();
         $html .= html()->div()->attributes(['class' => 'col-md-4'])->open();
         $html .= html()->label('Per Page')->for('perPage')->class('form-label');
-        $html .= html()->select('perPage')->class('form-select form-select-sm mb-3')->value((int)$this->filters()['perPage'])->options(getPerPageDdl());
+        $html .= html()->select('perPage')->class('form-select form-select-sm mb-3')->value((int) $this->filters()['perPage'])->options(getPerPageDdl());
         $html .= html()->div()->close();
         $html .= html()->div()->close();
 
         return $html;
     }
-
 }

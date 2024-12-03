@@ -2,17 +2,18 @@
 
 namespace App\Services;
 
+use App\Models\Filepond\Filepond;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Filepond\Filepond;
-
 
 class FilepondService
 {
     private $disk;
+
     private $tempDisk;
+
     private $tempFolder;
 
     public function __construct()
@@ -25,7 +26,6 @@ class FilepondService
     /**
      * Get the file from request
      *
-     * @param  Request  $request
      * @return mixed
      */
     protected function getUploadedFile(Request $request)
@@ -38,8 +38,6 @@ class FilepondService
     /**
      * Validate the filepond file
      *
-     * @param  Request  $request
-     * @param  array  $rules
      * @return \Illuminate\Contracts\Validation\Validator
      */
     public function validator(Request $request, array $rules)
@@ -52,7 +50,6 @@ class FilepondService
     /**
      * Store the uploaded file in the fileponds table
      *
-     * @param  Request  $request
      * @return string
      */
     public function store(Request $request)
@@ -66,7 +63,7 @@ class FilepondService
             'mimetypes' => $file->getClientMimeType(),
             'disk' => $this->disk,
             'created_by' => auth()->id(),
-            'expires_at' => now()->addMinutes(config('filepond.expiration', 30))
+            'expires_at' => now()->addMinutes(config('filepond.expiration', 30)),
         ]);
 
         return Crypt::encrypt(['id' => $filepond->id]);
@@ -75,12 +72,12 @@ class FilepondService
     /**
      * Retrieve the filepond file from encrypted text
      *
-     * @param  string  $content
      * @return mixed
      */
     public function retrieve(string $content)
     {
         $input = Crypt::decrypt($content);
+
         return Filepond::owned()
             ->where('id', $input['id'])
             ->firstOrFail();
@@ -100,7 +97,7 @@ class FilepondService
             'mimetypes' => '',
             'disk' => $this->disk,
             'created_by' => auth()->id(),
-            'expires_at' => now()->addMinutes(30)
+            'expires_at' => now()->addMinutes(30),
         ]);
 
         Storage::disk($this->tempDisk)->makeDirectory($this->tempFolder.'/'.$filepond->id);
@@ -111,8 +108,8 @@ class FilepondService
     /**
      * Merge chunks
      *
-     * @param  Request  $request
      * @return string
+     *
      * @throws \Throwable
      */
     public function chunk(Request $request)
@@ -157,7 +154,7 @@ class FilepondService
                 'mimetypes' => Storage::disk($this->tempDisk)->mimeType($this->tempFolder.'/'.$id.'/'.$filename),
                 'disk' => $this->disk,
                 'created_by' => auth()->id(),
-                'expires_at' => now()->addMinutes(config('filepond.expiration', 30))
+                'expires_at' => now()->addMinutes(config('filepond.expiration', 30)),
             ]);
         }
 
@@ -167,7 +164,6 @@ class FilepondService
     /**
      * Get the offset of the last uploaded chunk for resume
      *
-     * @param string $content
      * @return false|int
      */
     public function offset(string $content)
@@ -187,7 +183,6 @@ class FilepondService
     /**
      * Delete the filepond file and record respecting soft delete
      *
-     * @param Filepond $filepond
      * @return bool|null
      */
     public function delete(Filepond $filepond)
@@ -197,5 +192,4 @@ class FilepondService
 
         return $filepond->delete();
     }
-
 }

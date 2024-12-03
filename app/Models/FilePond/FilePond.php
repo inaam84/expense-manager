@@ -10,7 +10,7 @@ class Filepond extends Model
 {
     use HasFactory;
 
-    protected $table = "filepond_files";
+    protected $table = 'filepond_files';
 
     protected $guarded = [];
 

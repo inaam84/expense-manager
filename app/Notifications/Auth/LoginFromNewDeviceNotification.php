@@ -4,7 +4,6 @@ namespace App\Notifications\Auth;
 
 use App\Models\Auth\AuthenticationLog;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -51,7 +50,7 @@ class LoginFromNewDeviceNotification extends Notification
                 'ipAddress' => $this->authenticationLog->ip_address,
                 'browser' => $this->authenticationLog->user_agent,
                 'location' => $this->authenticationLog->location,
-        ]);
+            ]);
     }
 
     /**

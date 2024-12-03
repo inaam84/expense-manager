@@ -4,7 +4,6 @@ namespace App\Notifications\Auth;
 
 use App\Models\Auth\AuthenticationLog;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -13,6 +12,7 @@ class FailedLoginNotification extends Notification
     use Queueable;
 
     public AuthenticationLog $authenticationLog;
+
     /**
      * Create a new notification instance.
      *
@@ -43,14 +43,14 @@ class FailedLoginNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject(__('A failed login attempt to your account.'))
-                    ->markdown('emails.auth.failed-login', [
-                        'account' => $notifiable,
-                        'time' => $this->authenticationLog->login_at,
-                        'ipAddress' => $this->authenticationLog->ip_address,
-                        'browser' => $this->authenticationLog->user_agent,
-                        'location' => $this->authenticationLog->location,
-                    ]);
+            ->subject(__('A failed login attempt to your account.'))
+            ->markdown('emails.auth.failed-login', [
+                'account' => $notifiable,
+                'time' => $this->authenticationLog->login_at,
+                'ipAddress' => $this->authenticationLog->ip_address,
+                'browser' => $this->authenticationLog->user_agent,
+                'location' => $this->authenticationLog->location,
+            ]);
     }
 
     /**
