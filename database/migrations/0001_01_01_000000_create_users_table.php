@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Laravel\Fortify\Fortify;
 
 return new class extends Migration
 {
@@ -12,11 +13,28 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->uuid('id');
+            $table->string('username', 50)->unique();
+            $table->string('firstname', 70);
+            $table->string('lastname', 70);
             $table->string('email')->unique();
+            $table->tinyInteger('user_type');
+            $table->boolean('system_access');
+            $table->string('title', 50)->nullable();
+            $table->string('phone', 50)->nullable();
+            $table->string('phone_mobile', 50)->unique();
+            $table->string('status', 25)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->text('two_factor_secret')->nullable();
+            $table->text('two_factor_recovery_codes')->nullable();
+
+            if (Fortify::confirmsTwoFactorAuthentication()) {
+                $table->timestamp('two_factor_confirmed_at')->nullable();
+            }
+
+            $table->string('avatar_type')->nullable();
+            $table->string('avatar_location')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -29,7 +47,7 @@ return new class extends Migration
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
+            $table->foreignUuid('user_id')->nullable()->index();
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');

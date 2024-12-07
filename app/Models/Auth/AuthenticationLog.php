@@ -14,4 +14,9 @@ class AuthenticationLog extends Model
     public $timestamps = false;
 
     protected $table = 'authentication_log';
+
+    public function authenticatable()
+    {
+        return $this->morphTo();
+    }
 }

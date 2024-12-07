@@ -56,7 +56,7 @@
             </div>
             <!-- end main content-->
 
-            {{ html()->form('POST', '')->attribute('name', 'frmLogout')->open() }}
+            {{ html()->form('POST', route('logout'))->attribute('name', 'frmLogout')->open() }}
             {{ html()->form()->close() }}
 
         </div>
