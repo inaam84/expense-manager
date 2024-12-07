@@ -41,8 +41,7 @@ class RemoveAuthLogs extends Command
     {
         $date = $this->argument('date');
 
-        if(! $this->validateDate($date) || !$this->isBeforeToday($date))
-        {
+        if (! $this->validateDate($date) || ! $this->isBeforeToday($date)) {
             $this->error('Invalid date. Please ensure the date is in YYYY-MM-DD format and is before today.');
 
             return 1;
@@ -68,6 +67,6 @@ class RemoveAuthLogs extends Command
     {
         $d = Carbon::createFromFormat('Y-m-d', $date)->startOfDay();
 
-        return $d->isBefore( Carbon::today() );
+        return $d->isBefore(Carbon::today());
     }
 }

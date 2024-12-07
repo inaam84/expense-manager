@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('media')) {
+        if (! Schema::hasTable('media')) {
             Schema::create(
                 'media',
                 function (Blueprint $table) {
@@ -32,7 +32,7 @@ return new class extends Migration
             );
         }
 
-        if (!Schema::hasTable('mediables')) {
+        if (! Schema::hasTable('mediables')) {
             Schema::create(
                 'mediables',
                 function (Blueprint $table) {
