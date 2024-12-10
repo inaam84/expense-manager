@@ -19,11 +19,6 @@
                 <button class="btn btn-info waves-effect btn-sm" type="button" data-bs-toggle="modal" data-bs-target=".bs-save-filters-modal-center">
                     <i class="fas fa-save"></i> Save
                 </button>
-                {!! html()
-                    ->select('saved_filters')
-                    ->class('form-select-sm')
-                    ->options( ['' => 'Select Saved Searches'] + auth()->user()->savedFilters()->where('uri', url()->current())->pluck('filter_name', 'filter_id')->toArray() )
-                     !!}
             </div>
         </div><!-- /.modal-content -->
         {{ html()->form()->close() }}
@@ -58,84 +53,6 @@
 
 @push('page-scripts')
 <script>
-    $(function(){
-        $("button#btnSaveFilters").on("click", function(event){
-            event.preventDefault();
-
-            var btn = $(this);
-            var filter_name = $("input[name=filter_name]").val();
-
-            $.ajax({
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                beforeSend: function() {
-                    btn.attr('disabled', true);
-                    btn.html('<i class="fa fa-spinner fa-spin"></i>');
-                },
-                url: '{{ route('ajax.saveUserFilters') }}',
-                data: {
-                    filter_name: filter_name,
-                    uri: '{{ url()->current() }}',
-                    filters: $("form[name=frmFilters]").serialize()
-                },
-                success: function(response) {
-                    $.each(response.filters, function(key, value) {
-                        var newOption = $('<option>', {
-                            value: key,
-                            text: value
-                        });
-                        $('#saved_filters').append(newOption);
-                    });
-
-                    btn.closest('.modal').modal('hide');
-
-                    setTimeout(function(){
-                        $('.bs-example-modal-center').modal('show');
-                    }, 500);
-                },
-                error: function(errorInfo, code, errorMessage) {
-                    btn.attr('disabled', false);
-                    btn.html('<i class="fa fa-save"></i> Save Search Filters');
-                    alert(errorInfo.responseJSON.message !==
-                            undefined ? errorInfo.responseJSON.message :
-                            errorMessage);
-                }
-            });
-
-            $("input[name=filter_name]").val('');
-
-        });
-
-        $("select[name=saved_filters]").on("change", function(e){
-            e.preventDefault();
-
-            var thisSelect = $(this);
-            var filterId = this.value;
-
-            $.ajax({
-                type: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                url: '{{ route('ajax.getUserFilters') }}',
-                data: {
-                    filter_id: filterId
-                },
-                success: function(response) {
-                    const params = parseQueryString(response.filters);
-                    populateForm(params);
-                    thisSelect.val(filterId);
-                },
-                error: function(errorInfo, code, errorMessage) {
-                    alert(errorInfo.responseJSON.message !==
-                            undefined ? errorInfo.responseJSON.message :
-                            errorMessage);
-                }
-            });
-        });
-    });
 
     function parseQueryString(queryString)
     {

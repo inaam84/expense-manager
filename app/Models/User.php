@@ -144,7 +144,7 @@ class User extends Authenticatable
             case 'gravatar':
                 return url('images/no_image.jpg');
             case 'storage':
-                if (is_file(Storage::path('public/'.$this->avatar_location))) {
+                if (is_file(Storage::disk('public')->path($this->avatar_location))) {
                     return asset('storage/'.$this->avatar_location);
                 }
                 break;

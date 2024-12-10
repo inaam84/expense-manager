@@ -61,22 +61,6 @@
                                                 <td>
                                                     @include('partials.user_access_badge', ['user' => $user])
                                                 </td>
-                                                <th class="text-info text-center" style="cursor: pointer"
-                                                    onclick="window.location.href='{{ route('tickets.index') }}?_reset=2&assigned_agent_id={{ $user->id }}&ticket_status={{ App\Models\Lookups\TicketStatusLookup::STATUS_REOPENED }}'">
-                                                    {{ $user->reopened_tickets_count }}
-                                                </th>
-                                                <th class="text-warning text-center" style="cursor: pointer"
-                                                    onclick="window.location.href='{{ route('tickets.index') }}?_reset=2&assigned_agent_id={{ $user->id }}&due_today=1'">
-                                                    {{ $user->due_today_tickets_count }}
-                                                </th>
-                                                <th class="text-danger text-center" style="cursor: pointer"
-                                                    onclick="window.location.href='{{ route('tickets.index') }}?_reset=2&assigned_agent_id={{ $user->id }}&overdue=1'">
-                                                    {{ $user->overdue_tickets_count }}
-                                                </th>
-                                                <th class="text-danger text-center" style="cursor: pointer"
-                                                    onclick="window.location.href='{{ route('tickets.index') }}?_reset=2&assigned_agent_id={{ $user->id }}'">
-                                                    {{ $user->assigned_tickets_count }}
-                                                </th>
                                                 <th>
                                                     <button type="button" class="btn btn-outline-info waves-effect waves-light btn-sm" title="Click to view detail"
                                                         onclick="window.location.href='{{ route('users.show', $user) }}'">

@@ -29,14 +29,6 @@
             </div>
         </div>
         <!-- end row -->
-        <div class="row mb-3 @error('department') text-danger @enderror">
-            {{ html()->label('Department')->for('department')->class('col-sm-4 col-form-label') }}
-            <div class="col-sm-7">
-                {{ html()->text('department')->class('form-control')->attributes(['id' => 'department', 'maxlength' => 50]) }}
-                @error('department') <div class="error">{{ $message }}</div> @enderror
-            </div>
-        </div>
-        <!-- end row -->
         <div class="row mb-3 @error('phone_work') text-danger @enderror">
             {{ html()->label('Work Phone')->for('phone_work')->class('col-sm-4 col-form-label') }}
             <div class="col-sm-7">
@@ -80,17 +72,6 @@
             </div>
         </div>
         <!-- end row -->
-        <div class="row mb-3 @error('notify_new_ticket') text-danger @enderror">
-            {{ html()->label('Notify New Ticket')
-                ->for('notify_new_ticket')->class('col-sm-4 col-form-label') }}
-            <div class="col-sm-7">
-                <input type="checkbox" id="notify_new_ticket" name="notify_new_ticket" switch="bool" value="1" {{ (isset($user) && $user->notify_new_ticket) == 1 ? 'checked' : '' }} >
-                <label for="notify_new_ticket" data-on-label="Yes" data-off-label="No"></label>
-                @error('notify_new_ticket') <div class="error">{{ $message }}</div> @enderror
-            </div>
-        </div>
-        <!-- end row -->
-
     </div>
     <div class="card-footer">
         <div class="d-grid">

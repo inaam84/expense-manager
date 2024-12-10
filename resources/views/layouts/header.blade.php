@@ -20,16 +20,6 @@
                 <i class="ri-menu-2-line align-middle"></i>
             </button>
 
-            <!-- App Search-->
-            {{ html()->form('GET', '')->attributes(['name' => 'frmGlobalSearch', 'id' => 'frmGlobalSearch', 'class' => 'app-search d-none d-lg-block'])->open() }}
-            {{ html()->hidden('_reset', 2) }}
-            <div class="position-relative">
-                <input type="text" class="form-control" placeholder="Ticket number..." name="ticket_number">
-                <span class="ri-search-line"></span>
-            </div>
-            {{ html()->form()->close() }}
-
-
         </div>
 
         <div class="d-flex">

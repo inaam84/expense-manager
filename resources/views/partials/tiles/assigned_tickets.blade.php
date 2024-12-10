@@ -4,7 +4,7 @@
         <div class="d-flex">
             <div class="flex-grow-1">
                 <p class="text-truncate font-size-14 mb-2">
-                    <a href="{{ route('tickets.index') }}?_reset=2&ticket_status_multi[]={{ App\Models\Lookups\TicketStatusLookup::STATUS_ASSIGNED }}">
+                    <a href="">
                         Assigned Tickets
                     </a>
                 </p>
