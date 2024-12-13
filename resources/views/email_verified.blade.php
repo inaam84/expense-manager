@@ -28,20 +28,13 @@
                             </div>
                         </div>
 
-                        <h4 class="text-muted text-center font-size-18"><b>{{ __('Email Verification Required') }}</b></h4>
+                        <h4 class="text-muted text-center font-size-18"><b>Email Verified</b></h4>
 
                         <div class="p-3">
-
-                            <p>{{ __('It looks like you haven’t verified your email address yet.') }}</p>
-
-                            <p>{{ __('Please check your inbox for the verification email. If you didn’t receive the email, you can request a new one.') }}</p>
-
-                            <form method="POST" action="{{ route('verification.send') }}">
-                                @csrf
-                                <button type="submit">{{ __('Send Verification Email Again') }}</button>
-                            </form>
-
-                            <p>{{ __('Once you verify your email, you will be able to log in and access your dashboard.') }}</p>                            
+                            <p class="text-info">Thank you, your email has been verified successfuly. </p>
+                            <p class="text-info">
+                                Please navigate to <a href="{{ route('login') }}" rel="noopener noreferrer">Login Page</a> to continue.
+                            </p>                            
                         </div>
                         <!-- end -->
                     </div>
@@ -56,4 +49,3 @@
         @include('layouts.auth-common-scripts')
     </body>
 </html>
-

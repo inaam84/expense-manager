@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsAdmin
+class LastUserActivity
 {
     /**
      * Handle an incoming request.
@@ -15,10 +16,10 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user() && auth()->user()->isAdmin()) {
-            return $next($request);
+        if (auth()->user()) {
+            Cache::put('user-is-online-'.auth()->user()->id, true, 300); // 5 Minutes
         }
 
-        abort(Response::HTTP_UNAUTHORIZED);
+        return $next($request);
     }
 }

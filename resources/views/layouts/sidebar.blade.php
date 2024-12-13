@@ -25,7 +25,22 @@
                         <span>Home</span>
                     </a>
                 </li>
-
+                @if(auth()->user()->isAdmin())
+                <li class="{{ request()->is('system_admin/*') ? 'mm-active' : '' }}">
+                    <a href="javascript: void(0);" class="has-arrow waves-effect {{ request()->is('system_admin/*') ? 'mm-active' : '' }}">
+                        <i class="fas fa-cogs"></i>
+                        <span>System Admin</span>
+                    </a>
+                    <ul class="sub-menu mm-collapse {{ request()->is('system_admin/*') ? 'mm-show' : '' }}" aria-expanded="false">
+                        <li class="{{ request()->is('system_admin/users/*') ? 'mm-active' : '' }}">
+                            <a href="{{ route('users.index') }}" class="waves-effect {{ request()->route('users.index') ? 'mm-active' : '' }}">
+                                <i class="fas fa-users"></i>
+                                <span>Users</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
 
             </ul>
         </div>

@@ -12,8 +12,9 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
-class ProfileController extends Controller
+class ProfileController extends Controller implements UpdatesUserProfileInformation
 {
     /**
      * Display the user's profile form.
@@ -30,13 +31,15 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        auth()->user()->fill($request->validated());
+        $user = auth()->user();
+        $user->fill($request->validated());
 
-        if (auth()->user()->isDirty('email')) {
-            auth()->user()->email_verified_at = null;
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+            $user->sendEmailVerificationNotification();
         }
 
-        auth()->user()->save();
+        $user->save();
 
         return Redirect::route('profile.edit')->with('message', 'Profile information updated');
     }
