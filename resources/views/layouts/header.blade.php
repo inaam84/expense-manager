@@ -5,13 +5,13 @@
             <div class="navbar-brand-box">
                 <a href="{{ route('home') }}" class="logo logo-dark">
                     <span class="logo-lg">
-                        <img src="{{ asset('images/logos/company_logo.jpg') }}" alt="logo-sm" height="50">
+                        <img src="{{ asset('backend/assets/images/logo.png') }}" alt="logo-sm" height="50">
                     </span>
                 </a>
 
                 <a href="{{ route('home') }}" class="logo logo-light">
                     <span class="logo-lg">
-                        <img src="{{ asset('images/logos/company_logo.jpg') }}" alt="logo-sm-light" height="50">
+                        <img src="{{ asset('backend/assets/images/logo.png') }}" alt="logo-sm-light" height="50">
                     </span>
                 </a>
             </div>
@@ -27,11 +27,11 @@
 
 
 
-            <div class="dropdown d-none d-lg-inline-block ms-1">
+            <!-- <div class="dropdown d-none d-lg-inline-block ms-1">
                 <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
                     <i class="ri-fullscreen-line"></i>
                 </button>
-            </div>
+            </div> -->
 
 
             <div class="dropdown d-inline-block user-dropdown">

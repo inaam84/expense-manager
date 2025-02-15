@@ -22,7 +22,7 @@
                         <div class="text-center">
                             <div class="mb-3">
                                 <a href="/" class="auth-logo">
-                                    <img src="{{ asset('images/logos/company_logo.png') }}" height="100" class="logo-dark mx-auto" alt="">
+                                    <img src="{{ asset('backend/assets/images/logo.png') }}" height="100" class="logo-dark mx-auto" alt="">
                                 </a>
                                 <hr>
                             </div>

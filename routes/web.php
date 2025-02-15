@@ -5,6 +5,7 @@ use App\Http\Controllers\Files\DownloadFileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Users\UserController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('email_verified', function () {
@@ -46,6 +47,11 @@ Route::middleware(['auth', 'admin', 'activity'])->group(function () {
         Route::resource('users', UserController::class);
 
     });
+});
+
+Route::group(['middleware' => 'auth', 'activity'], function () {
+    Route::resource('vehicles', VehicleController::class);
+
 });
 
 require __DIR__.'/auth.php';

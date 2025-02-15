@@ -9,6 +9,7 @@ use App\Models\Traits\Filterable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +18,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use Filterable, HasFactory, HasUuids, Notifiable, TwoFactorAuthenticatable;
+    use Authorizable, Filterable, HasFactory, HasUuids, Notifiable, TwoFactorAuthenticatable;
 
     protected $keyType = 'string';
 
@@ -151,5 +152,10 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         return url('images/no_image.jpg');
+    }
+
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class);
     }
 }

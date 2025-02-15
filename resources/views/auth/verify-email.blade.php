@@ -22,24 +22,28 @@
                         <div class="text-center">
                             <div class="mb-3">
                                 <a href="/" class="auth-logo">
-                                    <img src="{{ asset('images/logos/company_logo.png') }}" height="100" class="logo-dark mx-auto" alt="">
+                                    <img src="{{ asset('backend/assets/images/logo.png') }}" height="100" class="logo-dark mx-auto" alt="">
                                 </a>
                                 <hr>
                             </div>
                         </div>
 
+                        @if(session('status'))
+                        <p class="text-info"><i class="fa fa-info-circle"></i> {{ __('A new email verification link has been sent.') }}</p>
+                        @endif
+
                         <h4 class="text-muted text-center font-size-18"><b>{{ __('Email Verification Required') }}</b></h4>
 
                         <div class="p-3">
 
-                            <p>{{ __('It looks like you haven’t verified your email address yet.') }}</p>
-
                             <p>{{ __('Please check your inbox for the verification email. If you didn’t receive the email, you can request a new one.') }}</p>
 
-                            <form method="POST" action="{{ route('verification.send') }}">
-                                @csrf
-                                <button type="submit">{{ __('Send Verification Email Again') }}</button>
-                            </form>
+                            <p>
+                                <form method="POST" action="{{ route('verification.send') }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-info w-100 waves-effect waves-light ">{{ __('Send Verification Email Again') }}</button>
+                                </form>
+                            </p>
 
                             <p>{{ __('Once you verify your email, you will be able to log in and access your dashboard.') }}</p>                            
                         </div>

@@ -24,9 +24,9 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'username' => 'admin',
-            'phone_mobile' => 'admin',
-            'user_type' => 1,
+            'username' => fake()->word(),
+            'phone_mobile' => fake()->phoneNumber(),
+            'user_type' => 101,
             'system_access' => 1,
             'firstname' => fake()->firstName(),
             'lastname' => fake()->lastName(),

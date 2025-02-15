@@ -12,7 +12,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\Vehicle' => 'App\Policies\VehiclePolicy',
     ];
 
     /**
@@ -24,6 +24,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // Enable email verification
+        \Illuminate\Support\Facades\Gate::define('email-verified', function ($user) {
+            return ! is_null($user->email_verified_at);
+        });
     }
 }

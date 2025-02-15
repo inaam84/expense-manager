@@ -6,7 +6,7 @@
         <meta charset="utf-8" />
         <title>{{ config('app.name') }} - Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta content="{{ config('app.name') }} Tickests Management System" name="description" />
+        <meta content="{{ config('app.name') }} Expense Manager" name="description" />
         <meta content="Themesdesign" name="author" />
         @include('layouts.auth-common-styles')
 
@@ -22,7 +22,7 @@
                         <div class="text-center">
                             <div class="mb-3">
                                 <a href="/" class="auth-logo">
-                                    <img src="{{ asset('images/logos/company_logo.png') }}" height="100" class="logo-dark mx-auto" alt="">
+                                    <img src="{{ asset('backend/assets/images/logo.png') }}" height="100" class="logo-dark mx-auto" alt="">
                                 </a>
                                 <hr>
                             </div>
@@ -105,8 +105,11 @@
                                 </div>
 
                                 <div class="form-group mb-0 row mt-2">
-                                    <div class="col-sm-7 mt-3">
+                                    <div class="col-sm-6 mt-3">
                                         <a href="{{ route('password.request') }}" class="text-muted">Forgot your password?</a>
+                                    </div>
+                                    <div class="col-sm-6 mt-3">
+                                        <a href="{{ route('register') }}" class="text-muted float-end">Register</a>
                                     </div>
                                 </div>
                             </form>
