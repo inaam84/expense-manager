@@ -42,6 +42,14 @@
                 </li>
                 @endif
 
+                <li class="{{ request()->route('vehicles.index') ? 'mm-active' : '' }}">
+                    <a href="{{ route('vehicles.index') }}" class="waves-effect {{ request()->route('vehicles.index') ? 'mm-active' : '' }}">
+                        <i class="fas fa-car"></i>
+                        <span>Vehicles</span>
+                    </a>
+                </li>
+
+
             </ul>
         </div>
         <!-- Sidebar -->
