@@ -68,7 +68,7 @@ class ProfileController extends Controller implements UpdatesUserProfileInformat
     public function uploadAvatar(Request $request)
     {
         if ($request->has('profile_image')) {
-            if (is_file(Storage::disk('public')->path(auth()->user()->avatar_location))) {
+            if (! is_null(auth()->user()->avatar_location) && is_file(Storage::disk('public')->path(auth()->user()->avatar_location))) {
                 Storage::disk('public')->delete(auth()->user()->avatar_location);
             }
 

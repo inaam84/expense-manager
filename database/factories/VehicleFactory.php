@@ -24,7 +24,7 @@ class VehicleFactory extends Factory
             'id' => $this->faker->uuid,
             'user_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
             'registration_number' => strtoupper($this->faker->unique()->bothify('??## ???')),
-            'make' => $this->faker->company,
+            'make' => $this->faker->randomElement(json_decode(file_get_contents(storage_path('app/data/vehicle_makes.json')), true)),
             'model' => $this->faker->word,
             'year' => $this->faker->year,
             'color' => $this->faker->safeColorName,

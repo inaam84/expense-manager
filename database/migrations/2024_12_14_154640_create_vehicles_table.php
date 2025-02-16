@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->uuid('id');
-            $table->uuid('user_id');
+            $table->uuid('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('registration_number')->unique();
             $table->string('make');
             $table->string('model');
@@ -25,7 +25,6 @@ return new class extends Migration
             $table->date('tax_due_date')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

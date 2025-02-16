@@ -34,6 +34,14 @@ class VehicleController extends Controller
     {
         Gate::authorize('view', $vehicle);
 
+        $vehicle->load([
+            'incomes',
+            'expenses',
+        ]);
+
+        $vehicle->total_income = $vehicle->incomes->sum('amount');
+        $vehicle->total_expense = $vehicle->expenses->sum('amount');
+
         return view('vehicles.show', compact('vehicle'));
     }
 

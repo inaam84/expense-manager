@@ -12,6 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        return;
         Schema::table('users', function (Blueprint $table) {
             $table->text('two_factor_secret')
                 ->after('password')

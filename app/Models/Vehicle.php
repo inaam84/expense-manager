@@ -23,4 +23,30 @@ class Vehicle extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function incomes()
+    {
+        return $this->hasMany(Income::class, 'vehicle_id')->latest();
+    }
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class, 'vehicle_id')->latest();
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::deleting(function ($vehicle) {
+            $vehicle->incomes()->each(function ($income) {
+                $income->delete();
+            });
+
+            $vehicle->expenses()->each(function ($expense) {
+                $expense->delete();
+            });
+
+        });
+    }
 }
