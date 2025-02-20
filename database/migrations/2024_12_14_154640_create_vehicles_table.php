@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('fuel_type');
             $table->date('mot_due_date')->nullable();
             $table->date('tax_due_date')->nullable();
+            $table->date('insurance_due_date')->nullable();
             $table->timestamps();
 
         });

@@ -63,6 +63,13 @@
                     </a>
                 </li>
 
+                <li class="{{ request()->is('notification_preferences/*') ? 'mm-active' : '' }}">
+                    <a href="{{ route('notification_preferences.index') }}" class="waves-effect {{ request()->route('notification_preferences.index') ? 'mm-active' : '' }}">
+                        <i class="fas fa-bell"></i>
+                        <span>Notification Preferences</span>
+                    </a>
+                </li>
+
 
             </ul>
         </div>

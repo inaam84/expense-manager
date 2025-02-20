@@ -78,6 +78,15 @@
             </div>
         </div>
         <!-- end row -->
+        <div class="row mb-1 @error('insurance_due_date') text-danger @enderror">
+            {{ html()->label('Insurance Due Date')->for('insurance_due_date')->class('col-sm-4 col-form-label') }}
+            <div class="col-sm-8">
+                {{ html()->text('insurance_due_date')->class('form-control')->attributes(['id' => 'insurance_due_date', 'type' => 'date'])
+                    ->value(isset($vehicle->insurance_due_date) ? $vehicle->insurance_due_date->format('Y-m-d') : '') }}
+                @error('insurance_due_date') <div class="error">{{ $message }}</div> @enderror
+            </div>
+        </div>
+        <!-- end row -->
     </div>
 </div>
 

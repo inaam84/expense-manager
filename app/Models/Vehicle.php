@@ -17,6 +17,7 @@ class Vehicle extends Model
     protected $casts = [
         'mot_due_date' => 'date',
         'tax_due_date' => 'date',
+        'insurance_due_date' => 'date',
     ];
 
     public function owner()

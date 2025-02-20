@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('vehicle_id')->references('id')->on('vehcles')->onDelete('cascade');
             $table->bigInteger('amount');
             $table->date('expense_date');
+            $table->string('details', 800);
             $table->timestamps();
         });
     }

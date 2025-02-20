@@ -44,6 +44,7 @@
                                         <th>Income Date</th>
                                         <th>Income Amount (&pound;)</th>
                                         <th>Vehicle Details</th>
+                                        <th>Details</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -64,6 +65,7 @@
                                                 <dd>{{ $income->vehicle->year }}</dd>
                                             </dl>
                                         </td>
+                                        <td>{!! nl2br(e($income->details)) !!}</td>
                                         <td>
                                             <button type="button" class="btn btn-outline-primary waves-effect waves-light btn-sm btnEditIncome" 
                                                 title="Click to edit the information" data-income-id="{{ $income->id }}" >

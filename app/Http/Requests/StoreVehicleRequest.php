@@ -36,6 +36,7 @@ class StoreVehicleRequest extends FormRequest
             'fuel_type' => 'nullable|max:25',
             'mot_due_date' => 'nullable|date',
             'tax_due_date' => 'nullable|date',
+            'insurance_due_date' => 'nullable|date',
         ];
     }
 }

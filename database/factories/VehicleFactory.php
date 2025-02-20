@@ -30,8 +30,9 @@ class VehicleFactory extends Factory
             'color' => $this->faker->safeColorName,
             'engine_size' => $this->faker->randomFloat(1, 1.0, 5.0).'L',
             'fuel_type' => $this->faker->randomElement(['Petrol', 'Diesel', 'Electric', 'Hybrid']),
-            'mot_due_date' => $this->faker->dateTimeBetween('+3 months', '+8 months'),
-            'tax_due_date' => $this->faker->dateTimeBetween('+3 months', '+8 months'),
+            'mot_due_date' => $this->faker->dateTimeBetween('+1 months', '+8 months'),
+            'tax_due_date' => $this->faker->dateTimeBetween('+1 months', '+8 months'),
+            'insurance_due_date' => $this->faker->dateTimeBetween('+1 months', '+8 months'),
             'created_at' => now(),
             'updated_at' => now(),
         ];

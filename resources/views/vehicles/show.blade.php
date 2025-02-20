@@ -36,39 +36,54 @@
                             {{ $vehicle->registration_number }}
                         </h3>
 
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <dl class="row">
+                                    <dt class="col-sm-6">Make: </dt>
+                                    <dd class="col-sm-6">{{ $vehicle->make }}</dd>
+
+                                    <dt class="col-sm-6">Model: </dt>
+                                    <dd class="col-sm-6">{{ $vehicle->model }}</dd>
+
+                                    <dt class="col-sm-6">Year: </dt>
+                                    <dd class="col-sm-6">{{ $vehicle->year }}</dd>
+
+                                    <dt class="col-sm-6">Color: </dt>
+                                    <dd class="col-sm-6">{{ $vehicle->color }}</dd>
+
+                                    <dt class="col-sm-6">Engine Size: </dt>
+                                    <dd class="col-sm-6">{{ $vehicle->engine_size }}</dd>
+
+                                    <dt class="col-sm-6">Fuel Type: </dt>
+                                    <dd class="col-sm-6">{{ $vehicle->fuel_type }}</dd>
+                                </dl>
+
+                            </div>
+                            <div class="col-sm-6">
+                                <dl class="row">
+                                    <dt class="col-sm-6">MOT Due Date: </dt>
+                                    <dd class="col-sm-6">
+                                        {{ optional($vehicle->mot_due_date)->format('d/m/Y') }}
+                                        @include('partials.remaining_period_string', ['_date' => optional($vehicle->mot_due_date)])
+                                    </dd>
+
+                                    <dt class="col-sm-6">Tax Due Date: </dt>
+                                    <dd class="col-sm-6">
+                                        {{ optional($vehicle->tax_due_date)->format('d/m/Y') }}
+                                        @include('partials.remaining_period_string', ['_date' => optional($vehicle->tax_due_date)])
+                                    </dd>
+
+                                    <dt class="col-sm-6">Insurance Due Date: </dt>
+                                    <dd class="col-sm-6">
+                                        {{ optional($vehicle->insurance_due_date)->format('d/m/Y') }}
+                                        @include('partials.remaining_period_string', ['_date' => optional($vehicle->insurance_due_date)])
+                                    </dd>
+                                </dl>
+
+                            </div>
+                        </div>
+
                         <div class="col-sm-6">
-                            <dl class="row">
-                                <dt class="col-sm-6">Make: </dt>
-                                <dd class="col-sm-6">{{ $vehicle->make }}</dd>
-
-                                <dt class="col-sm-6">Model: </dt>
-                                <dd class="col-sm-6">{{ $vehicle->model }}</dd>
-
-                                <dt class="col-sm-6">Year: </dt>
-                                <dd class="col-sm-6">{{ $vehicle->year }}</dd>
-
-                                <dt class="col-sm-6">Color: </dt>
-                                <dd class="col-sm-6">{{ $vehicle->color }}</dd>
-
-                                <dt class="col-sm-6">Engine Size: </dt>
-                                <dd class="col-sm-6">{{ $vehicle->engine_size }}</dd>
-
-                                <dt class="col-sm-6">Fuel Type: </dt>
-                                <dd class="col-sm-6">{{ $vehicle->fuel_type }}</dd>
-
-                                <dt class="col-sm-6">MOT Due Date: </dt>
-                                <dd class="col-sm-6">
-                                    {{ optional($vehicle->mot_due_date)->format('d/m/Y') }}
-                                    @include('partials.remaining_period_string', ['_date' => optional($vehicle->mot_due_date)])
-                                </dd>
-
-                                <dt class="col-sm-6">Tax Due Date: </dt>
-                                <dd class="col-sm-6">
-                                    {{ optional($vehicle->tax_due_date)->format('d/m/Y') }}
-                                    @include('partials.remaining_period_string', ['_date' => optional($vehicle->tax_due_date)])
-                                </dd>
-                            </dl>
-
                         </div>
                     </div>
                 </div>
@@ -96,8 +111,8 @@
                                     <td>{{ $income->income_date->format('d/m/Y') }}</td>
                                     <td>{{ $income->amount }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-outline-primary waves-effect waves-light btn-sm btnEditIncome" 
-                                            title="Click to edit the information" data-income-id="{{ $income->id }}" >
+                                        <button type="button" class="btn btn-outline-primary waves-effect waves-light btn-sm btnEditIncome"
+                                            title="Click to edit the information" data-income-id="{{ $income->id }}">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         {{ html()->form('DELETE', route('incomes.destroy', $income))->attributes(['style' => 'display: inline;'])->open() }}
@@ -115,7 +130,8 @@
 
                                 @if($vehicle->total_income > 0)
                                 <tr>
-                                    <th>Total</th><th colspan="2">{{ $vehicle->total_income }}</th>
+                                    <th>Total</th>
+                                    <th colspan="2">{{ $vehicle->total_income }}</th>
                                 </tr>
                                 @endif
                             </tbody>
@@ -146,8 +162,8 @@
                                     <td>{{ $expense->expense_date->format('d/m/Y') }}</td>
                                     <td>{{ $expense->amount }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-outline-primary waves-effect waves-light btn-sm btnEditExpense" 
-                                            title="Click to edit the information" data-expense-id="{{ $expense->id }}" >
+                                        <button type="button" class="btn btn-outline-primary waves-effect waves-light btn-sm btnEditExpense"
+                                            title="Click to edit the information" data-expense-id="{{ $expense->id }}">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         {{ html()->form('DELETE', route('expenses.destroy', $expense))->attributes(['style' => 'display: inline;'])->open() }}
@@ -164,7 +180,8 @@
                                 @endforelse
                                 @if($vehicle->total_expense > 0)
                                 <tr>
-                                    <th>Total</th><th colspan="2">{{ $vehicle->total_expense }}</th>
+                                    <th>Total</th>
+                                    <th colspan="2">{{ $vehicle->total_expense }}</th>
                                 </tr>
                                 @endif
                             </tbody>
@@ -210,7 +227,6 @@
                 }
             });
     });
-
 </script>
 
 @endpush

@@ -22,6 +22,7 @@ class IncomeFactory extends Factory
             'vehicle_id' => $this->faker->randomElement(Vehicle::pluck('id')->toArray()),
             'amount' => $this->faker->numberBetween(100, 150),
             'income_date' => $this->faker->dateTimeBetween('-6 months', '+1 months'),
+            'details' => $this->faker->paragraph(),
         ];
     }
 }

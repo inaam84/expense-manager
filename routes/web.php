@@ -5,6 +5,7 @@ use App\Http\Controllers\Filepond\FilepondController;
 use App\Http\Controllers\Files\DownloadFileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\NotificationPreferenceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\VehicleController;
@@ -55,6 +56,7 @@ Route::group(['middleware' => 'auth', 'activity'], function () {
     Route::resource('vehicles', VehicleController::class);
     Route::resource('incomes', IncomeController::class);
     Route::resource('expenses', ExpenseController::class);
+    Route::resource('notification_preferences', NotificationPreferenceController::class);
 
 });
 
