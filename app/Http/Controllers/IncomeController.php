@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Income;
+use App\Services\FilepondService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+use Plank\Mediable\Facades\MediaUploader;
 
 class IncomeController extends Controller
 {
@@ -42,11 +48,34 @@ class IncomeController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        Income::create([
+        $income = Income::create([
             'vehicle_id' => $request->vehicle_id,
             'amount' => $request->income_amount,
             'income_date' => $request->income_date,
+            'details' => $request->income_details,
         ]);
+
+        if ($request->has('income_file')) {
+            $file = $request->file('income_file'); 
+            $extension = $file->getClientOriginalExtension(); 
+            $incomeFileNameAndExtension = Str::random(12) . '.' . $extension;
+            $dir = "users/" . auth()->user()->id . "/incomes/" . $income->id;
+            $fullPath = $dir . "/" . $incomeFileNameAndExtension;
+    
+            if (!File::exists(Storage::disk('public')->path($dir))) {
+                File::makeDirectory(Storage::disk('public')->path($dir), 0755, true, true);
+            }
+    
+            if ($request->has('income_file')) {
+                $media = MediaUploader::fromSource($request->file('income_file'))
+                    ->toDirectory($dir)
+                    ->useFilename($incomeFileNameAndExtension)
+                    ->makePrivate()
+                    ->upload();
+
+                $income->attachMedia($media, 'income_file');
+            }
+        }
 
         return response()->json(['message' => 'Income saved successfully'], 200);
     }

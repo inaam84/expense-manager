@@ -6,10 +6,12 @@ use App\AmountTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Plank\Mediable\Mediable;
+use Plank\Mediable\MediableInterface;
 
-class Income extends Model
+class Income extends Model implements MediableInterface
 {
-    use AmountTrait, HasFactory, HasUuids;
+    use AmountTrait, HasFactory, HasUuids, Mediable;
 
     protected $table = 'incomes';
 

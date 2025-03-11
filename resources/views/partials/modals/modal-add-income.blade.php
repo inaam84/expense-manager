@@ -35,9 +35,9 @@ $fromPage = $fromPage ?? 'show';
                     <ul id="error-list"></ul>
                 </div>
 
-                <form id="income-form" method="POST" action="{{ route('incomes.store') }}">
+                <form id="income-form" method="POST" action="{{ route('incomes.store') }}" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="_method" id="income-method" value="POST"> <!-- Dynamically updated for edit -->
+                    <input type="hidden" name="_method" id="income-method" value="POST"> 
 
                     @if($fromPage == 'show')
                     <input type="hidden" name="vehicle_id" value="{{ $vehicle->id }}">
@@ -52,14 +52,29 @@ $fromPage = $fromPage ?? 'show';
                     </div>
                     @endif
 
-                    <div class="mb-3">
-                        <label for="income_amount" class="form-label">Income Amount:</label>
-                        <input type="number" name="income_amount" id="income_amount" class="form-control" step="0.01" required>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label for="income_amount" class="form-label">Income Amount:</label>
+                                <input type="number" name="income_amount" id="income_amount" class="form-control" step="0.01" required >
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label for="income_date" class="form-label">Income Date:</label>
+                                <input type="date" name="income_date" id="income_date" class="form-control" required>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="income_date" class="form-label">Income Date:</label>
-                        <input type="date" name="income_date" id="income_date" class="form-control" required>
+                        <label for="income_details" class="form-label">Notes:</label>
+                        <textarea name="income_details" id="income_details" class="form-control" rows="5"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="income_file" class="form-label">File:</label>
+                        <input type="file" id="income_file" name="income_file" />
                     </div>
                 </form>
 
@@ -92,10 +107,15 @@ $fromPage = $fromPage ?? 'show';
             $('#validation-errors').hide();
             $('#error-list').empty();
 
+            let formData = new FormData(this);
+            // formData.append('_token', $('meta[name="csrf-token"]').attr('content')); 
+
             $.ajax({
                 url: this.action,
                 method: 'POST',
-                data: $(this).serialize(),
+                data: formData,
+                processData: false, // Prevent jQuery from processing the data
+                contentType: false, // Prevent jQuery from setting content type
                 success: function(response) {
                     $('#incomeModal').modal('hide');
                     window.location.reload();
